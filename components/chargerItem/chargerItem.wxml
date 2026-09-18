@@ -2,7 +2,8 @@
     <view class="station-header">
         <view class="station-name">{{item.name}}</view>
         <view class="station-status">
-            <text wx:if="{{item.free / item.total > 0.6 || item.free >= 10}}" class="status-badge status-free">空闲</text>
+            <text wx:if="{{item.offline}}" class="status-badge status-unknown">已下线</text>
+            <text wx:elif="{{item.free / item.total > 0.6 || item.free >= 10}}" class="status-badge status-free">空闲</text>
             <text wx:else class="status-badge status-occupied">使用中</text>
         </view>
     </view>
@@ -15,7 +16,8 @@
             </text>
             <text class="info-item">
                 <text class="label">空闲：</text>
-                <text>{{item.free || 0}}/{{item.total || 0}}</text>
+                <text wx:if="{{item.offline}}">—</text>
+                <text wx:else>{{item.free || 0}}/{{item.total || 0}}</text>
             </text>
         </view>
 

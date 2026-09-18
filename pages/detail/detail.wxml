@@ -16,6 +16,10 @@
         </view>
 
         <view class="info-content">
+            <view class="offline-tip" wx:if="{{station.offline}}">
+                <text>该站点已不在数据源中，以下为收藏时的快照信息</text>
+            </view>
+
             <view class="cards-container">
                 <view class="status-card status-free">
                     <text class="status-label">空闲</text>

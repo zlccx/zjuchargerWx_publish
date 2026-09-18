@@ -90,6 +90,17 @@
 .info-content {
 }
 
+/* 站点已下线提示 */
+.offline-tip {
+    margin: 20rpx 0 0;
+    padding: 16rpx 20rpx;
+    background-color: #fff7e6;
+    border-radius: 12rpx;
+    font-size: 24rpx;
+    color: #d48806;
+    text-align: center;
+}
+
 /* 卡片容器 - Grid布局 */
 .cards-container {
     display: grid;

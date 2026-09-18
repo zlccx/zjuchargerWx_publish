@@ -14,9 +14,17 @@ App({
 
         // 从本地存储加载收藏数据
         try {
-            const favoriteStations = wx.getStorageSync('favoriteStations');
-            if (favoriteStations) {
-                store.setFavoriteStations(favoriteStations);
+            const saved = wx.getStorageSync('favorites');
+            if (saved && Array.isArray(saved.ids)) {
+                store.setFavorites(saved.ids, saved.snapshots);
+            } else {
+                // 兼容旧版本：之前缓存的是完整 station 数组
+                const legacy = wx.getStorageSync('favoriteStations');
+                if (Array.isArray(legacy)) {
+                    store.setFavorites(legacy);
+                    // 迁移完成后清理旧缓存
+                    wx.removeStorageSync('favoriteStations');
+                }
             }
         } catch (error) {
             console.error('加载收藏数据失败:', error);
@@ -31,8 +39,8 @@ App({
     // 保存数据到本地存储
     saveDataToStorage() {
         try {
-            const state = store.getState();
-            wx.setStorageSync('favoriteStations', state.favoriteStations);
+            const { favoriteIds, favoriteSnapshots } = store.getState();
+            wx.setStorageSync('favorites', { ids: favoriteIds, snapshots: favoriteSnapshots });
             console.log('数据已保存到本地存储');
         } catch (error) {
             console.error('保存数据失败:', error);

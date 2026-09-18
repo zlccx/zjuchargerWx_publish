@@ -50,9 +50,8 @@ Page({
             store.removeFavorite(station.hash_id);
             isLiked = false;
         } else {
-            // 未收藏，添加到收藏数组（深拷贝）
-            const clonedStation = JSON.parse(JSON.stringify(station));
-            store.addFavorite(clonedStation);
+            // 未收藏，记录 hash_id 并保留一份快照
+            store.addFavorite(station);
             isLiked = true;
         }
 

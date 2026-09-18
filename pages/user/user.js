@@ -32,8 +32,8 @@ Page({
             loading: true
         });
 
-        // 直接使用store中的收藏列表
-        let favoriteStations = store.getState().favoriteStations;
+        // 用 hash_id 关联最新站点状态（数据源里没有的用快照兜底）
+        let favoriteStations = store.getFavoriteStations();
 
         // 对收藏列表进行排序
         let sortedStations = sortStations(favoriteStations, this.data.sortBy);
