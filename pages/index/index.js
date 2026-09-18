@@ -1,6 +1,4 @@
 // index.js
-import { sortStations } from '@/utils/sort';
-import { initFilterStations } from '@/utils/common';
 import store from '@/store/index.js';
 
 Page({
@@ -17,13 +15,7 @@ Page({
     
     // 根据校区、运营商和搜索文本筛选充电桩
     filterStations() {
-        initFilterStations(
-            store.getState().stations,
-            this.data.selectedCampus,
-            this.data.selectedProvider,
-            this.data.searchText
-        );
-        store.update('stations');
+        store.applyFilter(this.data.selectedCampus, this.data.selectedProvider, this.data.searchText);
     },
     
     // 校区筛选
@@ -50,9 +42,7 @@ Page({
     
     changeSort() { // 更改排序方式 
         this.setData({ sortBy: (this.data.sortBy + 1) % 3 });
-        // 使用统一的排序函数
-        store.getState().stations = sortStations(store.getState().stations, this.data.sortBy);
-        store.update('stations');
+        store.applySort(this.data.sortBy);
     },
 
     goDetail(e) {
@@ -116,18 +106,18 @@ Page({
 
     onShow() {
         console.log('index.js - onShow');
-        const state = store.getState();
-        
+        const filter = store.getFilter();
+
         // 检查是否需要设置校区筛选
-        if (state.filter.campus) {
-            this.setCampus(state.filter.campus);
+        if (filter.campus) {
+            this.setCampus(filter.campus);
             // 清空筛选条件，避免重复应用
             store.setFilter({ campus: null });
         }
-        
+
         // 检查是否需要设置运营商筛选
-        if (state.filter.provider) {
-            this.setProvider(state.filter.provider);
+        if (filter.provider) {
+            this.setProvider(filter.provider);
             // 清空筛选条件，避免重复应用
             store.setFilter({ provider: null });
         }

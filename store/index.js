@@ -1,5 +1,5 @@
 import { bd09ToGcj02, calculateDistance } from '@/utils/geo';
-import { extractCampusList, extractProviderList } from '@/utils/common';
+import { extractCampusList, extractProviderList, initFilterStations } from '@/utils/common';
 import { sortStations } from '@/utils/sort';
 
 // 初始状态
@@ -115,11 +115,6 @@ export const store = {
         return state.pageCount ++ ;
     },
 
-    // 获取当前状态
-    getState() {
-        return state;
-    },
-
     // 更新状态
     setState(newState) {
         state = { ...state, ...newState };
@@ -161,6 +156,14 @@ export const store = {
             }
         }
         this.setState({ favoriteIds: ids, favoriteSnapshots: snapshotMap });
+    },
+
+    // 读取收藏（返回副本，避免外部直接改 state）
+    getFavorites() {
+        return {
+            ids: [...state.favoriteIds],
+            snapshots: { ...state.favoriteSnapshots },
+        };
     },
 
     // 添加收藏
@@ -230,12 +233,28 @@ export const store = {
     },
 
     // 筛选条件相关方法
+    getFilter() {
+        return { ...state.filter };
+    },
+
     setFilter(filter) {
         this.setState({ filter: { ...state.filter, ...filter } });
     },
 
     resetFilter() {
         this.setState({ filter: { campus: null, provider: null } });
+    },
+
+    // 按条件过滤站点（在 store 内修改，避免外部直接操作 state）
+    applyFilter(campus, provider, searchText) {
+        initFilterStations(state.stations, campus, provider, searchText);
+        this.update('stations');
+    },
+
+    // 按指定方式排序站点
+    applySort(sortBy) {
+        state.stations = sortStations(state.stations, sortBy);
+        this.update('stations');
     },
 };
 

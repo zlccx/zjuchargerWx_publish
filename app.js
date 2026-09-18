@@ -39,8 +39,8 @@ App({
     // 保存数据到本地存储
     saveDataToStorage() {
         try {
-            const { favoriteIds, favoriteSnapshots } = store.getState();
-            wx.setStorageSync('favorites', { ids: favoriteIds, snapshots: favoriteSnapshots });
+            const { ids, snapshots } = store.getFavorites();
+            wx.setStorageSync('favorites', { ids, snapshots });
             console.log('数据已保存到本地存储');
         } catch (error) {
             console.error('保存数据失败:', error);
