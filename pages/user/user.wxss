@@ -70,3 +70,77 @@
     font-size: 28rpx;
     color: #1aad19;
 }
+
+/* 版本公告弹窗 */
+.announcement-mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.announcement-card {
+    width: 80vw;
+    max-height: 70vh;
+    background-color: #fff;
+    border-radius: 24rpx;
+    padding: 40rpx 36rpx 30rpx;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.announcement-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 30rpx;
+}
+
+.announcement-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+.announcement-version {
+    margin-left: 16rpx;
+    font-size: 26rpx;
+    color: #1aad19;
+}
+
+.announcement-item {
+    margin-bottom: 26rpx;
+}
+
+.announcement-item-title {
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8rpx;
+}
+
+.announcement-item-desc {
+    font-size: 26rpx;
+    color: #666;
+    line-height: 1.6;
+}
+
+.announcement-btn {
+    margin-top: 20rpx;
+    padding: 22rpx 0;
+    text-align: center;
+    background-color: #1aad19;
+    color: #fff;
+    border-radius: 16rpx;
+    font-size: 30rpx;
+}
+
+.announcement-btn:active {
+    opacity: 0.85;
+}

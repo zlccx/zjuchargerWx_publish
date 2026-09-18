@@ -5,7 +5,7 @@
     <view class="station-tip">
       <text>收藏了 {{favoriteStations.length}} 个充电桩</text>
     </view>
-    <view class="version-tag">v1.0.5</view>
+    <view class="version-tag" bindtap="onVersionTap">v2.0.0</view>
     <view class="sort-btn" bindtap="changeSort">
       <text>{{sortText[sortBy]}}</text>
     </view>
@@ -20,6 +20,23 @@
     
     <view class="empty-container" wx:else>
       <text class="empty-text">暂无收藏的充电桩</text>
+    </view>
+  </view>
+
+  <!-- 版本公告弹窗 -->
+  <view class="announcement-mask" wx:if="{{showAnnouncement}}" bindtap="closeAnnouncement">
+    <view class="announcement-card" catchtap="noop">
+      <view class="announcement-header">
+        <text class="announcement-title">版本公告</text>
+        <text class="announcement-version">{{announcement.version}}</text>
+      </view>
+      <view class="announcement-list">
+        <view class="announcement-item" wx:for="{{announcement.items}}" wx:key="title">
+          <view class="announcement-item-title">{{item.title}}</view>
+          <view class="announcement-item-desc">{{item.desc}}</view>
+        </view>
+      </view>
+      <view class="announcement-btn" bindtap="closeAnnouncement">知道了</view>
     </view>
   </view>
 </view>
