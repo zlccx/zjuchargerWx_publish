@@ -1,0 +1,51 @@
+<!-- index.wxml -->
+<!-- 搜索组件 -->
+<search 
+    searchMode="{{searchMode}}" 
+    searched="{{searched}}" 
+    bind:search="onSearch"
+/>
+
+<!-- 第一行的提示信息 -->
+<view class="first_line">
+    <view class="location-tip" wx:if="{{!userLocation}}">
+        <text>正在获取您的位置信息，请稍候...</text>
+    </view>
+    <view class="station-tip" wx:if="{{stations.length > 0}}">
+        <text>检测到 {{stations.length}} 个充电桩</text>
+    </view>
+    <view class="sort-btn" bindtap="changeSort">
+        <text>{{sortText[sortBy]}}</text>
+    </view>
+</view>
+
+<!-- 筛选行 -->
+<view class="filter-row" wx:if="{{stations.length > 0}}">
+    <!-- 校区筛选 -->
+    <view class="filter-item campus-filter">
+        <picker bindchange="onCampusChange" value="{{selectedCampusIndex}}" range="{{campusList}}">
+            <view class="picker">
+                校区：{{campusList[selectedCampusIndex]}}
+            </view>
+        </picker>
+    </view>
+    <!-- 运营商筛选 -->
+    <view class="filter-item provider-filter">
+        <picker bindchange="onProviderChange" value="{{selectedProviderIndex}}" range="{{providerList}}">
+            <view class="picker">
+                运营商：{{providerList[selectedProviderIndex]}}
+            </view>
+        </picker>
+    </view>
+</view>
+
+<!-- 充电桩列表 -->
+<view class="container">
+    <block wx:if="{{stations.length > 0}}">
+        <view class="station-list">
+            <view wx:for="{{stations}}" wx:key="hash_id" bindtap="goDetail" data-index="{{index}}" wx:if="{{item.view}}">
+                <charger-item item="{{item}}" />
+            </view>
+        </view>
+    </block>
+</view>

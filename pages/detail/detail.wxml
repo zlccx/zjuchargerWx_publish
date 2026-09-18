@@ -1,0 +1,49 @@
+<view class="detail-container">
+    <!-- 地图区域 -->
+    <view class="map-container">
+        <map longitude="{{station.lon}}" latitude="{{station.lat}}" class="map" show-location="true"
+            markers="{{markers}}" />
+    </view>
+
+    <!-- 充电桩信息区域 -->
+    <view class="station-info">
+        <view class="info-header">
+            <text class="station-name">{{station.name}}</text>
+            <view class="favorite-btn" bindtap="toggleFavorite">
+                <text class="favorite-icon">{{station.like ? '★' : '☆'}}</text>
+                <text>{{station.like ? '已收藏' : '收藏'}}</text>
+            </view>
+        </view>
+
+        <view class="info-content">
+            <view class="cards-container">
+                <view class="status-card status-free">
+                    <text class="status-label">空闲</text>
+                    <text class="status-number">{{station.free || 0}}</text>
+                </view>
+                <view class="status-card status-total">
+                    <text class="status-label">总数</text>
+                    <text class="status-number">{{station.total || 0}}</text>
+                </view>
+                <view class="status-card status-provider" bindtap="navigateToIndexWithProvider">
+                    <text class="status-label">运营商</text>
+                    <text class="status-text">{{station.provider || '未知'}}</text>
+                </view>
+                <view class="status-card status-campus" bindtap="navigateToIndexWithCampus">
+                    <text class="status-label">校区</text>
+                    <text class="status-text">{{station.campus_name || '未知地址'}}</text>
+                </view>
+            </view>
+
+            <view class="distance-display">
+                <text class="distance-value">{{station.dist}}m</text>
+            </view>
+
+            <!-- 导航条目 -->
+            <view class="navigation-item" bindtap="openNavigation">
+                <image src="/imgs/navigation.png" class="nav-icon"></image>
+                <text class="nav-text">打开导航</text>
+            </view>
+        </view>
+    </view>
+</view>
