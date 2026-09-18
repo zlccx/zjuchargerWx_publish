@@ -1,20 +1,6 @@
 // components/search/search.js
 Component({
     /**
-     * 组件的属性列表
-     */
-    properties: {
-        searchMode: {
-            type: Number,
-            value: 1
-        },
-        searched: {
-            type: Number,
-            value: 0
-        }
-    },
-
-    /**
      * 组件的初始数据
      */
     data: {

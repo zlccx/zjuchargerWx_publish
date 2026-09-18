@@ -15,8 +15,7 @@ Page({
         stationData.like = isLiked;
 
         this.setData({
-            station: stationData,
-            fromCampus: options.campus || '全部' // 接收从首页传递的校区信息
+            station: stationData
         });
 
         // 初始化地图标记

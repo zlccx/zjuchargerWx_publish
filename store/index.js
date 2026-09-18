@@ -110,7 +110,7 @@ export const store = {
 
     // 重置状态
     resetState() {
-        state = { ...initialState };
+        state = JSON.parse(JSON.stringify(initialState));
     },
 
     // 用户位置相关方法

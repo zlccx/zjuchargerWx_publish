@@ -15,9 +15,14 @@ Page({
         searchText: '', // 搜索文本
     },
     
-    // 根据校区和运营商筛选充电桩
+    // 根据校区、运营商和搜索文本筛选充电桩
     filterStations() {
-        initFilterStations(store.getState().stations, this.data.selectedCampus, this.data.selectedProvider);
+        initFilterStations(
+            store.getState().stations,
+            this.data.selectedCampus,
+            this.data.selectedProvider,
+            this.data.searchText
+        );
         store.update('stations');
     },
     
@@ -55,7 +60,7 @@ Page({
         const station = this.data.stations[index];
         console.log("index.js - 点击了充电桩\n", station);
         wx.navigateTo({
-            url: '/pages/detail/detail?station=' + JSON.stringify(station) + '&campus=' + this.data.selectedCampus
+            url: '/pages/detail/detail?station=' + JSON.stringify(station)
         });
     },
     
@@ -89,15 +94,8 @@ Page({
 
     // 搜索事件处理
     onSearch(e) {
-        const searchText = e.detail.searchText;
-        const { selectedCampus, selectedProvider } = this.data;
-        
-        if (searchText) {
-            // 如果搜索名称不为空，设置搜索状态
-            this.setData({searchText});
-        }
-        initFilterStations(store.getState().stations, selectedCampus, selectedProvider, searchText);
-        store.update('stations');
+        this.setData({ searchText: e.detail.searchText });
+        this.filterStations();
     },
 
     onLoad() {

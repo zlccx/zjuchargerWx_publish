@@ -1,5 +1,8 @@
 {
   "usingComponents": {
     "charger-item": "../../components/chargerItem/chargerItem"
-  }
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f5f5f5",
+  "backgroundTextStyle": "dark"
 }

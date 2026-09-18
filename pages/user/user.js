@@ -20,15 +20,6 @@ Page({
         this.loadFavoriteStations();
     },
 
-    // 跳转到充电桩详情页
-    goToDetail(e) {
-        const index = e.currentTarget.dataset.index;
-        const station = this.data.favoriteStations[index];
-        wx.navigateTo({
-            url: '/pages/detail/detail?station=' + JSON.stringify(station)
-        });
-    },
-
     // 页面相关事件处理函数--监听用户下拉动作
     onPullDownRefresh() {
         this.loadFavoriteStations();
@@ -71,7 +62,7 @@ Page({
     goDetail: function (e) {
         const item = e.currentTarget.dataset.item;
         wx.navigateTo({
-            url: '/pages/detail/detail?station=' + JSON.stringify(item) + '&campus=全部'
+            url: '/pages/detail/detail?station=' + JSON.stringify(item)
         });
     }
 })

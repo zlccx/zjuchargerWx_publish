@@ -1,19 +1,5 @@
 // 通用工具函数
 
-// 深拷贝
-export function deepCopy(obj) {
-    if (obj === null || typeof obj !== 'object') {
-        return obj;
-    }
-    const clonedObj = {};
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            clonedObj[key] = deepCopy(obj[key]);
-        }
-    }
-    return clonedObj;
-}
-
 /**
  * 从充电桩数据中提取校区列表
  * @param {Array} stations - 充电桩数组

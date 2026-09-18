@@ -3,20 +3,23 @@ import store from '@/store/index';
 
 App({
     onLaunch() {
-        try {
-            store.processData();
-            // 从本地存储加载收藏数据
-            const favoriteStations = wx.getStorageSync('favoriteStations');
-            if (favoriteStations) {
-                store.setFavoriteStations(favoriteStations);
-            }
-        } catch (error) {
+        store.processData().catch((error) => {
             console.error('App launch error:', error);
             wx.showToast({
                 title: '初始化失败',
                 icon: 'none',
                 duration: 2000
             });
+        });
+
+        // 从本地存储加载收藏数据
+        try {
+            const favoriteStations = wx.getStorageSync('favoriteStations');
+            if (favoriteStations) {
+                store.setFavoriteStations(favoriteStations);
+            }
+        } catch (error) {
+            console.error('加载收藏数据失败:', error);
         }
     },
 
